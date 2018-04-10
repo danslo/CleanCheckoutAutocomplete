@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+    Copyright © 2018 Rubic. All rights reserved.
+    See LICENSE.txt for license details.
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <clean_checkout>
+            <auto_complete>
+                <enabled>0</enabled>
+                <split_street_fields>1</split_street_fields>
+            </auto_complete>
+        </clean_checkout>
+    </default>
+</config>
