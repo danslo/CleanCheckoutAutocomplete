@@ -19,7 +19,8 @@ define([
             locality:    { long_name:  "input[name='city']" },
             postal_town: { short_name: "input[name='city']" },
             country:     { short_name: "select[name='country_id']" },
-            administrative_area_level_1: { long_name: "input[name='region']:visible" }
+            administrative_area_level_1: { long_name: "input[name='region']:visible" },
+            administrative_area_level_2: { long_name: "input[name='region']:visible" }
         },
 
         initialize: function () {
@@ -85,7 +86,7 @@ define([
                             if (value !== null) {
                                 if (field.length) {
                                     field.val(value).change();
-                                } else if (type === 'administrative_area_level_1') {
+                                } else if (type === 'administrative_area_level_1' || type === 'administrative_area_level_2') {
                                     // Couldn't find visible region input, dealing with a dropdown.
                                     var regionSelector = "select[name='region_id'] option";
                                     form.find(regionSelector).filter(function () {
