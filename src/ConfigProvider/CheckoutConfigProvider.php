@@ -43,7 +43,7 @@ class CheckoutConfigProvider implements ConfigProviderInterface
                     self::CONFIG_PATH_AUTO_COMPLETE_API_KEY,
                     ScopeInterface::SCOPE_STORE
                 ),
-                'splitStreetFields' => $this->scopeConfig->getValue(
+                'splitStreetFields' => (bool)$this->scopeConfig->getValue(
                     self::CONFIG_PATH_AUTO_COMPLETE_SPLIT,
                     ScopeInterface::SCOPE_STORE
                 ),
