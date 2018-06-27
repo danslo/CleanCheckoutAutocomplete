@@ -35,6 +35,7 @@ define([
                                 autocomplete.addListener('place_changed', this.fillAddressFields);
                                 autocomplete.e = e.target;
                                 autocomplete.c = this;
+                                autocomplete.setComponentRestrictions({'country': this.getCountries(e.target)});
                                 this.autocomplete[e.target.id] = autocomplete;
                             }
                         }.bind(this));
@@ -107,6 +108,22 @@ define([
             }
             this.c.fillStreetFields(this.e, place);
             this.c.fillOtherFields(this.e, place);
+        },
+
+
+        getCountries: function(element) {
+            var form = $(element).closest('form');
+            var countries = [];
+
+            form.find("select[name='country_id'] option").each(function() {
+                var country = $(this).val();
+
+                if (country && (country !== 'delimiter')) {
+                    countries.push($(this).val());
+                }
+            });
+
+            return countries;
         }
     });
 });
