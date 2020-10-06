@@ -30,12 +30,15 @@ define([
                     requirejs,
                     function () {
                         $(document).on('keypress', this.streetFieldSelector, function (e) {
-                            if (typeof this.autocomplete[e.target.id] === 'undefined') {
+                            if (typeof this.autocomplete[e.target.id] === 'undefined'
+                                || this.autocomplete[e.target.id].country !== this.getSelectedCountry(e.target)
+                            ) {
                                 var autocomplete = new google.maps.places.Autocomplete(e.target, {types: ['geocode']});
                                 autocomplete.addListener('place_changed', this.fillAddressFields);
                                 autocomplete.e = e.target;
                                 autocomplete.c = this;
-                                autocomplete.setComponentRestrictions({'country': this.getCountries(e.target)});
+                                autocomplete.country = this.getSelectedCountry(e.target);
+                                autocomplete.setComponentRestrictions({'country': autocomplete.country});
                                 this.autocomplete[e.target.id] = autocomplete;
                             }
                         }.bind(this));
@@ -110,20 +113,11 @@ define([
             this.c.fillOtherFields(this.e, place);
         },
 
-
-        getCountries: function(element) {
-            var form = $(element).closest('form');
-            var countries = [];
-
-            form.find("select[name='country_id'] option").each(function() {
-                var country = $(this).val();
-
-                if (country && (country !== 'delimiter')) {
-                    countries.push($(this).val());
-                }
-            });
-
-            return countries;
+        getSelectedCountry: function(element) {
+            return $(element)
+                .closest('form')
+                .find("select[name='country_id']")
+                .val();
         }
     });
 });
